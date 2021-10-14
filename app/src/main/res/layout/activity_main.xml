@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <EditText
+            android:id="@+id/main_search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/rectangle"
+            android:hint="역"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:padding="10dp" />
+        <com.example.subway.ZoomableViewGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
+
+                <ImageView
+                    android:id="@+id/map"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/map_image" />
+
+                <Button
+                    android:id="@+id/station_101"
+                    android:layout_width="9dp"
+                    android:layout_height="9dp"
+                    android:layout_alignEnd="@+id/map"
+                    android:layout_alignBottom="@+id/map"
+                    android:layout_marginEnd="207dp"
+                    android:layout_marginBottom="265dp"
+                    android:background="@drawable/circle"
+                    android:gravity="center"
+                    android:paddingBottom="1dp"
+                    android:scaleType="fitXY"
+                    android:textAlignment="center"
+                    android:textSize="5dp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/station_102"
+                    android:layout_width="9dp"
+                    android:layout_height="9dp"
+                    android:layout_alignEnd="@+id/map"
+                    android:layout_alignBottom="@+id/map"
+                    android:layout_marginEnd="238dp"
+                    android:layout_marginBottom="265dp"
+                    android:background="@drawable/circle"
+                    android:gravity="center"
+                    android:paddingBottom="1dp"
+                    android:scaleType="fitXY"
+                    android:textAlignment="center"
+                    android:textSize="5dp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+        </com.example.subway.ZoomableViewGroup>
+        <Button
+            android:id="@+id/main_search_btn"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="0dp"
+            android:background="@drawable/search_icon" />
+    </RelativeLayout>
+
+
+    <FrameLayout
+        android:id="@+id/main_station_info"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</RelativeLayout>
