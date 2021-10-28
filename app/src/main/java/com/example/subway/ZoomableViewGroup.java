@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 public class ZoomableViewGroup extends ViewGroup {
     private float MAX_ZOOM = 2.5f;
-    private float MIN_ZOOM = 0.75f;
+    private float MIN_ZOOM = 1.0f;
     // these matrices will be used to move and zoom image
     private Matrix matrix = new Matrix();
     private Matrix matrixInverse = new Matrix();
@@ -31,6 +31,8 @@ public class ZoomableViewGroup extends ViewGroup {
 
     private float[] mDispatchTouchEventWorkingArray = new float[2];
     private float[] mOnTouchEventWorkingArray = new float[2];
+    float[] values = new float[9];
+    float [] theArray = new float[9];
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
@@ -205,12 +207,83 @@ public class ZoomableViewGroup extends ViewGroup {
                 lastEvent = null;
                 break;
             case MotionEvent.ACTION_MOVE:
+
                 if (mode == DRAG) {
                     matrix.set(savedMatrix);
+
                     float dx = event.getX() - start.x;
                     float dy = event.getY() - start.y;
-                    matrix.postTranslate(dx, dy);
+                    //////////////
+
+
+
+                    matrix.getValues(theArray);
+                    float x = theArray[2];
+                    float y = theArray[5];
+
+
+///////////////////////////
+                    if(theArray[0]<1){
+                        theArray[0] = 1;
+                    }
+
+                    if(theArray[0]>1.5){ //배수일때
+                        if(y+dy < -1700 && x+dx > 287){
+                            matrix.postTranslate(286 - x, -1699-y);
+                        } else if(y+dy > -115&& x+dx < -1750){//오른쪽으로 억지로
+                            matrix.postTranslate(  -1749 - x, -116-y);
+                        } else {
+                            if(x+dx > 287){
+                                matrix.postTranslate(286 - x, 0);
+                            } else if(x+dx < -1750){//오른쪽으로 억지로
+                                matrix.postTranslate( -1749 - x, 0);
+                            } else {
+                                matrix.postTranslate(dx, 0);
+                            }
+
+                            if(y+dy < -1700){
+                                matrix.postTranslate(0, -1699-y);
+                            } else if(y+dy > -115){//오른쪽으로 억지로
+                                matrix.postTranslate(  0, -116-y);
+                            } else {
+                                matrix.postTranslate(0, dy);
+                            }
+                        }
+                    } else {
+                        if(y+dy < -400 && x+dx > 777){
+                            matrix.postTranslate(776 - x, -399-y);
+                        } else if(y+dy > 1000 && x+dx < -777){//오른쪽으로 억지로
+                            matrix.postTranslate(  -776 - x, 999-y);
+                        } else if(y+dy < -400 && x+dx < -777) {
+                            matrix.postTranslate(-776 - x, -399-y);
+                        } else if(y+dy > 1000 && x+dx > 777) {
+                            matrix.postTranslate(776 - x, 999-y);
+                        }
+                        else{
+
+                            if(x+dx > 777){
+                                matrix.postTranslate(776 - x, 0);
+                            } else if(x+dx < -776){//오른쪽으로 억지로
+                                matrix.postTranslate( -776 - x, 0);
+                            } else {
+                                matrix.postTranslate(dx, 0);
+                            }
+
+                            if(y+dy < -400){
+                                matrix.postTranslate(dx, -399-y);
+                            } else if(y+dy > 1000){//오른쪽으로 억지로
+                                matrix.postTranslate(  dx, 999-y);
+                            } else {
+                                matrix.postTranslate(0, dy);
+                            }
+                        }
+                    }
+
+
+
+
                     matrix.invert(matrixInverse);
+                    /////////////
                 } else if (mode == ZOOM) {
                     float newDist = spacing(event);
                     if (newDist > 10f) {
