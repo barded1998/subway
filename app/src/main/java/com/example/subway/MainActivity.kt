@@ -12,6 +12,7 @@ import com.example.subway.databinding.ActivityMainBinding
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.ArrayList
 import kotlin.reflect.typeOf
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var binding: ActivityMainBinding
@@ -26,6 +27,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             val intent = Intent(this, SearchActivity::class.java)
             startActivity(intent)
         }
+        SubwaySearch.setOnClickListener{
+            if (("station_101".substring(8)).contains(main_search_bar.text)) {
+                onClick(station_101)
+            }
+            if (("station_102".substring(8)).contains(main_search_bar.text)) {
+                onClick(station_102)
+            }
+        }
+
     }
 
 
@@ -34,9 +44,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         when (v?.id) {
             binding.station101.id -> station = "101"
             binding.station102.id -> station = "102"
+
         }
         var fragment = StationInfoFragment()
         var bundle = Bundle()
+
         bundle.putString("station", station)
         fragment.arguments = bundle
         supportFragmentManager.beginTransaction()
@@ -44,6 +56,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             .addToBackStack(null)
             .commit()
     }
+
+
 
 
 }
