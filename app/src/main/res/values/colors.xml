@@ -13,5 +13,15 @@
     <color name="colorGray">#808080</color>
     <color name="colorDivision">#e0e0e0</color>
     <color name="colorMjuDarkBlue">#071D49</color>
+    <color name="colorMjuLightBlue">#92c4eb</color>
     <color name="colorMjuBlue">#005EB8</color>
+    <color name="line1">#00b050</color>
+    <color name="line2">#002060</color>
+    <color name="line3">#953735</color>
+    <color name="line4">#ff0000</color>
+    <color name="line5">#4a7fbb</color>
+    <color name="line6">#ffc000</color>
+    <color name="line7">#92d050</color>
+    <color name="line8">#00b0f0</color>
+    <color name="line9">#6f30a0</color>
 </resources>

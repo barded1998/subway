@@ -5,18 +5,38 @@
       <map>
         <entry key="..\:/android-sdk/Application/subway/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.5697916666666667" />
         <entry key="..\:/android-sdk/Application/subway/app/src/main/res/drawable/black_radius.xml" value="0.16944444444444445" />
+        <entry key="..\:/android-sdk/Application/subway/app/src/main/res/drawable/btn_arrival.xml" value="0.34074074074074073" />
+        <entry key="..\:/android-sdk/Application/subway/app/src/main/res/drawable/btn_departure.xml" value="0.34074074074074073" />
+        <entry key="..\:/android-sdk/Application/subway/app/src/main/res/drawable/btn_transit.xml" value="0.34074074074074073" />
         <entry key="..\:/android-sdk/Application/subway/app/src/main/res/drawable/circle.xml" value="0.2179054054054054" />
+        <entry key="..\:/android-sdk/Application/subway/app/src/main/res/drawable/circle1.xml" value="0.22466216216216217" />
+        <entry key="..\:/android-sdk/Application/subway/app/src/main/res/drawable/circle2.xml" value="0.32407407407407407" />
+        <entry key="..\:/android-sdk/Application/subway/app/src/main/res/drawable/circle3.xml" value="0.32407407407407407" />
+        <entry key="..\:/android-sdk/Application/subway/app/src/main/res/drawable/circle4.xml" value="0.32407407407407407" />
+        <entry key="..\:/android-sdk/Application/subway/app/src/main/res/drawable/circle5.xml" value="0.32407407407407407" />
+        <entry key="..\:/android-sdk/Application/subway/app/src/main/res/drawable/circle6.xml" value="0.32407407407407407" />
+        <entry key="..\:/android-sdk/Application/subway/app/src/main/res/drawable/circle7.xml" value="0.32407407407407407" />
+        <entry key="..\:/android-sdk/Application/subway/app/src/main/res/drawable/circle8.xml" value="0.32407407407407407" />
+        <entry key="..\:/android-sdk/Application/subway/app/src/main/res/drawable/circle9.xml" value="0.5175925925925926" />
+        <entry key="..\:/android-sdk/Application/subway/app/src/main/res/drawable/circle_button.xml" value="0.32407407407407407" />
         <entry key="..\:/android-sdk/Application/subway/app/src/main/res/drawable/ic_launcher_background.xml" value="0.5697916666666667" />
         <entry key="..\:/android-sdk/Application/subway/app/src/main/res/drawable/rectangle.xml" value="0.24864864864864866" />
-        <entry key="..\:/android-sdk/Application/subway/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/android-sdk/Application/subway/app/src/main/res/layout/activity_result.xml" value="0.22" />
-        <entry key="..\:/android-sdk/Application/subway/app/src/main/res/layout/activity_search.xml" value="0.23817567567567569" />
+        <entry key="..\:/android-sdk/Application/subway/app/src/main/res/drawable/round_button.xml" value="0.24527027027027026" />
+        <entry key="..\:/android-sdk/Application/subway/app/src/main/res/drawable/station_button.xml" value="0.22466216216216217" />
+        <entry key="..\:/android-sdk/Application/subway/app/src/main/res/layout/activity_main.xml" value="0.47339322736696615" />
+        <entry key="..\:/android-sdk/Application/subway/app/src/main/res/layout/activity_result.xml" value="0.5" />
+        <entry key="..\:/android-sdk/Application/subway/app/src/main/res/layout/activity_search.xml" value="0.25" />
         <entry key="..\:/android-sdk/Application/subway/app/src/main/res/layout/activity_splash.xml" value="0.3134057971014493" />
+        <entry key="..\:/android-sdk/Application/subway/app/src/main/res/layout/bookmark_list_item.xml" value="0.5" />
         <entry key="..\:/android-sdk/Application/subway/app/src/main/res/layout/fragment_blank.xml" value="0.18885869565217392" />
-        <entry key="..\:/android-sdk/Application/subway/app/src/main/res/layout/fragment_result_by_distance.xml" value="0.23682432432432432" />
+        <entry key="..\:/android-sdk/Application/subway/app/src/main/res/layout/fragment_result_by_distance.xml" value="0.33" />
         <entry key="..\:/android-sdk/Application/subway/app/src/main/res/layout/fragment_result_by_expense.xml" value="0.23682432432432432" />
-        <entry key="..\:/android-sdk/Application/subway/app/src/main/res/layout/fragment_result_by_time.xml" value="0.23682432432432432" />
-        <entry key="..\:/android-sdk/Application/subway/app/src/main/res/layout/fragment_station_info.xml" value="0.33" />
+        <entry key="..\:/android-sdk/Application/subway/app/src/main/res/layout/fragment_result_by_time.xml" value="0.67" />
+        <entry key="..\:/android-sdk/Application/subway/app/src/main/res/layout/fragment_station_info.xml" value="0.5" />
+        <entry key="..\:/android-sdk/Application/subway/app/src/main/res/layout/history_list_item.xml" value="0.25" />
+        <entry key="..\:/android-sdk/Application/subway/app/src/main/res/layout/list_header.xml" value="0.49212962962962964" />
+        <entry key="..\:/android-sdk/Application/subway/app/src/main/res/layout/list_header2.xml" value="0.67" />
+        <entry key="..\:/android-sdk/Application/subway/app/src/main/res/layout/list_last.xml" value="0.30972222222222223" />
       </map>
     </option>
   </component>
