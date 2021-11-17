@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 public class ZoomableViewGroup extends ViewGroup {
     private float MAX_ZOOM = 2.5f;
-    private float MIN_ZOOM = 1.0f;
+    private float MIN_ZOOM = 1f;
     // these matrices will be used to move and zoom image
     private Matrix matrix = new Matrix();
     private Matrix matrixInverse = new Matrix();
@@ -207,10 +207,8 @@ public class ZoomableViewGroup extends ViewGroup {
                 lastEvent = null;
                 break;
             case MotionEvent.ACTION_MOVE:
-
                 if (mode == DRAG) {
                     matrix.set(savedMatrix);
-
                     float dx = event.getX() - start.x;
                     float dy = event.getY() - start.y;
                     //////////////
@@ -283,7 +281,6 @@ public class ZoomableViewGroup extends ViewGroup {
 
 
                     matrix.invert(matrixInverse);
-                    /////////////
                 } else if (mode == ZOOM) {
                     float newDist = spacing(event);
                     if (newDist > 10f) {
