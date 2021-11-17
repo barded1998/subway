@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="left|center"
+        android:layout_weight="1">
+        <TextView
+            android:id="@+id/bookmark_list_item_station"
+            android:layout_marginLeft="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="106"
+            android:textSize="15dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_margin="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="right|center"
+        android:layout_weight="1">
+        <Button
+            android:id="@+id/bookmark_list_item_departure"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@drawable/btn_arrival"
+            android:text="출발"
+            android:textSize="13dp" />
+        <Button
+            android:id="@+id/bookmark_list_item_transit"
+            android:layout_marginLeft="20dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@drawable/btn_arrival"
+            android:text="경유"
+            android:textSize="13dp"/>
+        <Button
+           android:id="@+id/bookmark_list_item_arrival"
+            android:layout_marginHorizontal="20dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@drawable/btn_arrival"
+            android:text="도착"
+            android:textSize="13dp"
+            android:scaleType="fitXY"/>
+    </LinearLayout>
+</LinearLayout>

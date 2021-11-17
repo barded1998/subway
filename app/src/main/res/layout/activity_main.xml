@@ -2,26 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/AD"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <EditText
-            android:id="@+id/main_search_bar"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginBottom="30dp"
-            android:background="@drawable/rectangle"
-            android:hint="역"
-            android:imeOptions="actionSearch"
-            android:inputType="text"
-            android:padding="10dp" />
+
         <com.example.subway.ZoomableViewGroup
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -35,8 +25,26 @@
                 <ImageView
                     android:id="@+id/map"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="280dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="248dp"
                     android:src="@drawable/map_image" />
+
+                <Button
+                    android:id="@+id/station_303"
+                    android:layout_width="9dp"
+                    android:layout_height="9dp"
+                    android:layout_alignEnd="@+id/map"
+                    android:layout_alignBottom="@+id/map"
+                    android:layout_marginEnd="331dp"
+                    android:layout_marginBottom="191dp"
+                    android:background="@drawable/station_button"
+                    android:gravity="center"
+                    android:paddingBottom="1dp"
+                    android:scaleType="fitXY"
+                    android:textAlignment="center"
+                    android:textSize="5dp"
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/station_101"
@@ -44,9 +52,9 @@
                     android:layout_height="9dp"
                     android:layout_alignEnd="@+id/map"
                     android:layout_alignBottom="@+id/map"
-                    android:layout_marginEnd="207dp"
-                    android:layout_marginBottom="265dp"
-                    android:background="@drawable/circle"
+                    android:layout_marginEnd="371dp"
+                    android:layout_marginBottom="133dp"
+                    android:background="@drawable/station_button"
                     android:gravity="center"
                     android:paddingBottom="1dp"
                     android:scaleType="fitXY"
@@ -55,22 +63,168 @@
                     android:textStyle="bold" />
 
                 <Button
-                    android:id="@+id/station_102"
+                    android:id="@+id/station_201"
                     android:layout_width="9dp"
                     android:layout_height="9dp"
                     android:layout_alignEnd="@+id/map"
                     android:layout_alignBottom="@+id/map"
-                    android:layout_marginEnd="238dp"
-                    android:layout_marginBottom="265dp"
-                    android:background="@drawable/circle"
+                    android:layout_marginEnd="372dp"
+                    android:layout_marginBottom="169dp"
+                    android:background="@drawable/station_button"
                     android:gravity="center"
                     android:paddingBottom="1dp"
                     android:scaleType="fitXY"
                     android:textAlignment="center"
                     android:textSize="5dp"
                     android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/station_301"
+                    android:layout_width="9dp"
+                    android:layout_height="9dp"
+                    android:layout_alignEnd="@+id/map"
+                    android:layout_alignBottom="@+id/map"
+                    android:layout_marginEnd="330dp"
+                    android:layout_marginBottom="234dp"
+                    android:background="@drawable/station_button"
+                    android:gravity="center"
+                    android:paddingBottom="1dp"
+                    android:scaleType="fitXY"
+                    android:textAlignment="center"
+                    android:textSize="5dp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/station_401"
+                    android:layout_width="9dp"
+                    android:layout_height="9dp"
+                    android:layout_alignEnd="@+id/map"
+                    android:layout_alignBottom="@+id/map"
+                    android:layout_marginEnd="350dp"
+                    android:layout_marginBottom="55dp"
+                    android:background="@drawable/station_button"
+                    android:gravity="center"
+                    android:paddingBottom="1dp"
+                    android:scaleType="fitXY"
+                    android:textAlignment="center"
+                    android:textSize="5dp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/station_306"
+                    android:layout_width="9dp"
+                    android:layout_height="9dp"
+                    android:layout_alignEnd="@+id/map"
+                    android:layout_alignBottom="@+id/map"
+                    android:layout_marginEnd="330dp"
+                    android:layout_marginBottom="82dp"
+                    android:background="@drawable/station_button"
+                    android:gravity="center"
+                    android:paddingBottom="1dp"
+                    android:scaleType="fitXY"
+                    android:textAlignment="center"
+                    android:textSize="5dp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/station_307"
+                    android:layout_width="9dp"
+                    android:layout_height="9dp"
+                    android:layout_alignEnd="@+id/map"
+                    android:layout_alignBottom="@+id/map"
+                    android:layout_marginEnd="329dp"
+                    android:layout_marginBottom="55dp"
+                    android:background="@drawable/station_button"
+                    android:gravity="center"
+                    android:paddingBottom="1dp"
+                    android:scaleType="fitXY"
+                    android:textAlignment="center"
+                    android:textSize="5dp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/station_501"
+                    android:layout_width="9dp"
+                    android:layout_height="9dp"
+                    android:layout_alignEnd="@+id/map"
+                    android:layout_alignBottom="@+id/map"
+                    android:layout_marginEnd="286dp"
+                    android:layout_marginBottom="234dp"
+                    android:background="@drawable/station_button"
+                    android:gravity="center"
+                    android:paddingBottom="1dp"
+                    android:scaleType="fitXY"
+                    android:textAlignment="center"
+                    android:textSize="5dp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/station_601"
+                    android:layout_width="9dp"
+                    android:layout_height="9dp"
+                    android:layout_alignEnd="@+id/map"
+                    android:layout_alignBottom="@+id/map"
+                    android:layout_marginEnd="255dp"
+                    android:layout_marginBottom="189dp"
+                    android:background="@drawable/station_button"
+                    android:gravity="center"
+                    android:paddingBottom="1dp"
+                    android:scaleType="fitXY"
+                    android:textAlignment="center"
+                    android:textSize="5dp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/station_701"
+                    android:layout_width="9dp"
+                    android:layout_height="9dp"
+                    android:layout_alignEnd="@+id/map"
+                    android:layout_alignBottom="@+id/map"
+                    android:layout_marginEnd="227dp"
+                    android:layout_marginBottom="191dp"
+                    android:background="@drawable/station_button"
+                    android:gravity="center"
+                    android:paddingBottom="1dp"
+                    android:scaleType="fitXY"
+                    android:textAlignment="center"
+                    android:textSize="5dp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/station_801"
+                    android:layout_width="9dp"
+                    android:layout_height="9dp"
+                    android:layout_alignEnd="@+id/map"
+                    android:layout_alignBottom="@+id/map"
+                    android:layout_marginEnd="133dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/station_button"
+                    android:gravity="center"
+                    android:paddingBottom="1dp"
+                    android:scaleType="fitXY"
+                    android:textAlignment="center"
+                    android:textSize="5dp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/station_901"
+                    android:layout_width="9dp"
+                    android:layout_height="9dp"
+                    android:layout_alignEnd="@+id/map"
+                    android:layout_alignBottom="@+id/map"
+                    android:layout_marginEnd="198dp"
+                    android:layout_marginBottom="31dp"
+                    android:background="@drawable/station_button"
+                    android:gravity="center"
+                    android:paddingBottom="1dp"
+                    android:scaleType="fitXY"
+                    android:textAlignment="center"
+                    android:textSize="5dp"
+                    android:textStyle="bold" />
+
             </RelativeLayout>
         </com.example.subway.ZoomableViewGroup>
+
         <Button
             android:id="@+id/main_search_btn"
             android:layout_width="70dp"
@@ -79,13 +233,73 @@
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="0dp"
             android:layout_marginBottom="0dp"
-            android:background="@drawable/search_icon" />
+            android:background="@drawable/paper_plane" />
+
+        <TextView
+            android:id="@+id/AdText"
+            android:layout_width="38dp"
+            android:layout_height="33dp"
+            android:background="#FFFFFF"
+            android:text="  AD"
+            android:translationX="5dp"
+            android:translationY="385dp" />
+
+        <FrameLayout
+            android:id="@+id/main_station_info"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </FrameLayout>
+
+        <ImageButton
+            android:id="@+id/AdButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleX="0.3"
+            android:scaleY="0.3"
+            android:translationX="-150dp"
+            android:translationY="348dp"
+            android:translationZ="50dp"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/myungji"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <ImageButton
+            android:id="@+id/btn_call"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleX="0.1"
+            android:scaleY="0.07"
+            android:translationX="-182dp"
+            android:translationY="135dp"
+            app:srcCompat="@drawable/mju_logo"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <ImageButton
+            android:id="@+id/AdButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="53dp"
+            android:scaleY="0.99"
+            android:translationX="100dp"
+            android:translationY="396.5dp"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/ic_baseline_close_24"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <SearchView
+            android:id="@+id/main_search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/rectangle"
+            android:iconifiedByDefault="true"
+            android:queryHint="역을 입력하시오">
+
+        </SearchView>
     </RelativeLayout>
 
-
-    <FrameLayout
-        android:id="@+id/main_station_info"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
 </RelativeLayout>
