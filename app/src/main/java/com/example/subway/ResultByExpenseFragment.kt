@@ -10,11 +10,15 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.subway.model.*
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ResultByExpenseFragment : Fragment() {
     // Store instance variables
@@ -23,7 +27,7 @@ class ResultByExpenseFragment : Fragment() {
     private var arrivalStation: String? = null
 
     // newInstance constructor for creating fragment with arguments
-    public fun newInstance(
+    fun newInstance(
         departureStation: String?,
         transitStation: String?,
         arrivalStation: String?
@@ -33,6 +37,7 @@ class ResultByExpenseFragment : Fragment() {
         args.putString("departureStation", departureStation)
         args.putString("transitStation", transitStation)
         args.putString("arrivalStation", arrivalStation)
+        Log.d("newInstance", "Expense")
         fragment.setArguments(args)
         return fragment
     }
@@ -43,8 +48,6 @@ class ResultByExpenseFragment : Fragment() {
         departureStation = arguments?.getString("departureStation")
         transitStation = arguments?.getString("transitStation")
         arrivalStation = arguments?.getString("arrivalStation")
-        Log.d("onCreate", "onCreate")
-
     }
 
     // Inflate the view for the fragment based on layout XML
@@ -52,8 +55,6 @@ class ResultByExpenseFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.d("onCreateView", "Expense")
-
         val view: View = inflater.inflate(
             com.example.subway.R.layout.fragment_result_by_expense,
             container,
@@ -67,15 +68,29 @@ class ResultByExpenseFragment : Fragment() {
                 false
             )
         );
+
+        //Get shortest path by time
+        //#####The difference of other fragments#####
         var path = getShortestPathByExpense(departureStation, arrivalStation)
+        //If departure == arrival -> set temporary route to prevent errors
+        if(departureStation == arrivalStation) {
+            path = mutableListOf("101", "102", "103")
+        }
+
+        //make combined path with lines and path
         var makedPath = makePath(path)
+
+        //if transitStation exists, update path
         if(transitStation != "" && transitStation != null) {
+            //#####The difference of other fragments#####
             var path1 = getShortestPathByExpense(departureStation, transitStation)
             var path2 = getShortestPathByExpense(transitStation, arrivalStation)
             makedPath = makePath(path1).plus(makePath(path2)) as MutableList<MutableList<String?>>
             path1.removeAt(path1.size -1)
             path = path1.plus(path2) as MutableList<String?>
         }
+
+        //Set the images of the departureStation and arrivalStation at the top
         when (makedPath[0][0].toString().toInt()) {
             1 ->  activity?.findViewById<ImageView>(R.id.result_departure_station_img)?.setImageResource(R.drawable.line1)
             2 ->  activity?.findViewById<ImageView>(R.id.result_departure_station_img)?.setImageResource(R.drawable.line2)
@@ -100,22 +115,42 @@ class ResultByExpenseFragment : Fragment() {
             9 ->  activity?.findViewById<ImageView>(R.id.result_arrival_station_img)?.setImageResource(R.drawable.line9)
 
         }
+        //Set ExpandableList(result list of path) by using ExpandableItemList
         var data = makeExpandableItemList(makedPath)
 
+        //Set the time spent
         var time = view?.findViewById<TextView>(R.id.expense_time)
-        time.setText((getTime(path) / 60).toString()+"분 " + (getTime(path) % 60).toString() + "초")
+        var cost = getTime(path)
+        var mm = cost/60
+        var ss = cost % 60
+        time.setText(mm.toString() + "분 " + ss.toString() + "초")
 
+        //Set start time and end time
+        val cal = Calendar.getInstance()
+        cal.time = Date()
+        var dataFormat = SimpleDateFormat("a h:mm:ss", Locale.KOREA)
+        var timeStart = view?.findViewById<TextView>(R.id.time_start)
+        timeStart.setText("${dataFormat.format(cal.time)}")
+        cal.add(Calendar.MINUTE, mm)
+        cal.add(Calendar.SECOND, ss)
+        var timeEnd = view?.findViewById<TextView>(R.id.time_end)
+        timeEnd.setText("${dataFormat.format(cal.time)}")
+
+        //Set the number of station
         var numOfStation = view?.findViewById<TextView>(R.id.expense_num_of_station)
         var size = 0
         numOfStation.setText((path.size -1).toString())
 
+        //Set the number of transfer
         var transfer = view?.findViewById<TextView>(R.id.expense_transfer)
         transfer.setText((makedPath.size -1).toString())
 
+        //Set the time spent
         var expense = view?.findViewById<TextView>(R.id.expense_expense)
         expense.setText(getExpense(path).toString())
-        var expenseBar = view?.findViewById<LinearLayout>(R.id.expense_bar)
+        var timeBar = view?.findViewById<LinearLayout>(R.id.expense_bar)
 
+        //Add LinearLayout about time spent for each case
         for(i in 0 until makedPath.size) {
             val layoutParams = LinearLayout.LayoutParams(
                 0,
@@ -130,7 +165,25 @@ class ResultByExpenseFragment : Fragment() {
             textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
             textView.setTextSize(10f)
             linearLayout.addView(textView)
-            expenseBar.addView(linearLayout)
+            timeBar.addView(linearLayout)
+
+            //For divide the layout
+            if(i != makedPath.size -1){
+                if (makedPath[i][0] == makedPath[i + 1][0]) {
+                    var divisionLayout = LinearLayout(context)
+                    divisionLayout.layoutParams = LinearLayout.LayoutParams(
+                        2,
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                    )
+                    divisionLayout.setBackgroundColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.colorDivision
+                        )
+                    )
+                    timeBar.addView(divisionLayout)
+                }
+            }
             when (makedPath[i][0].toString().toInt()) {
                 1 ->  linearLayout.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.line1))
                 2 -> linearLayout.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.line2))
@@ -148,13 +201,13 @@ class ResultByExpenseFragment : Fragment() {
 
         return view
     }
-
+    // Make Expandable Item List with ArrayList
     fun makeExpandableItemList(path: MutableList<MutableList<String?>>): ArrayList<ExpandableListAdapter.Item> {
         var data: ArrayList<ExpandableListAdapter.Item> = arrayListOf<ExpandableListAdapter.Item>();
         for(array in path) {
-            var places:  ExpandableListAdapter.Item= ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, array[1].toString(), array);
+            var places:  ExpandableListAdapter.Item= ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, array[1].toString(),array);
             places.invisibleChildren = arrayListOf()
-            for(i in 2 until array.size-1) {
+            for(i in 2 until array.size -1 ) {
                 (places.invisibleChildren as ArrayList<ExpandableListAdapter.Item?>).add( ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, array[i].toString()));
             }
             data.add(places)
@@ -164,19 +217,3 @@ class ResultByExpenseFragment : Fragment() {
     }
 
 }
-
-
-//                ArrayList<ExpandableListAdapter.Item> = arrayListOf<ExpandableListAdapter.Item>();
-//        data.add(ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "101"));
-//        data.add(ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "102"));
-//        data.add(ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "103"));
-//        data.add(ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "104"));
-//        data.add(ExpandableListAdapter.Item(ExpandableListAdapter.LAST, "201"));
-
-//        var places:  ExpandableListAdapter.Item= ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "노바");
-//        places.invisibleChildren = arrayListOf()
-//        (places.invisibleChildren as ArrayList<ExpandableListAdapter.Item?>).add( ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "카이저"));
-//        (places.invisibleChildren as ArrayList<ExpandableListAdapter.Item?>).add( ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "카인"));
-//        (places.invisibleChildren as ArrayList<ExpandableListAdapter.Item?>).add( ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "카데나"));
-//        (places.invisibleChildren as ArrayList<ExpandableListAdapter.Item?>).add( ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "엔젤릭버스터"));
-//        data.add(places)

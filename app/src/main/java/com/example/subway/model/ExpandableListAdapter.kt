@@ -14,6 +14,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
+import androidx.core.view.marginRight
 
 
 class ExpandableListAdapter(private val data: ArrayList<Item>) :
@@ -22,7 +23,7 @@ class ExpandableListAdapter(private val data: ArrayList<Item>) :
         var view: View? = null
         val context: Context = parent.context
         val dp: Float = context.getResources().getDisplayMetrics().density
-        val subItemPaddingLeft = (18 * dp).toInt()
+        val subItemPaddingLeft = (38 * dp).toInt()
         val subItemPaddingTopAndBottom = (5 * dp).toInt()
         when (viewType) {
             HEADER -> {
@@ -103,7 +104,6 @@ class ExpandableListAdapter(private val data: ArrayList<Item>) :
                         itemController.btn_expand_toggle.setImageResource(R.drawable.circle_minus)
                         item.invisibleChildren = null
                     }
-
                 })
             }
             CHILD -> {

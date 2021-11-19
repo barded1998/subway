@@ -39,6 +39,7 @@ class StationInfoFragment : Fragment() {
         fragmentView =
             LayoutInflater.from(activity).inflate(R.layout.fragment_station_info, container, false)
         setFragment()
+        
         //set info_prev_button
         var bookmark = getStringArrayPref("bookmark")
         if(bookmark?.contains(station)!!) {

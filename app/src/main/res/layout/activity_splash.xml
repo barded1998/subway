@@ -8,7 +8,7 @@
     android:gravity="center">
 
     <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:src="@drawable/mju_logo" />
+        android:layout_width="174dp"
+        android:layout_height="427dp"
+        android:src="@drawable/subway_logo" />
 </RelativeLayout>

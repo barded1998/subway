@@ -34,7 +34,10 @@
                     android:textSize="15dp"
                     android:textColor="@color/white"/>
 
-                <EditText
+                <AutoCompleteTextView
+                    android:completionThreshold="2"
+                    android:maxLength="3"
+                    android:inputType="number"
                     android:id="@+id/search_departure_station"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -60,7 +63,10 @@
                     android:textColor="@color/white"
                     />
 
-                <EditText
+                <AutoCompleteTextView
+                    android:completionThreshold="2"
+                    android:maxLength="3"
+                    android:inputType="number"
                     android:id="@+id/search_transit_station"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -86,7 +92,10 @@
                     android:textColor="@color/white"
                     />
 
-                <EditText
+                <AutoCompleteTextView
+                    android:completionThreshold="2"
+                    android:maxLength="3"
+                    android:inputType="number"
                     android:id="@+id/search_arrival_station"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -103,6 +112,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="경로 찾기"
+            android:textSize="20dp"
             android:textColor="@color/black"/>
     </LinearLayout>
 
@@ -116,9 +126,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:padding="10dp"
+        android:padding="5dp"
         android:text="즐겨찾기"
-        android:textSize="15dp" />
+        android:textSize="20dp"
+        android:textColor="@color/black"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -128,7 +139,8 @@
     <ListView
         android:id="@+id/search_bookmark"
         android:layout_width="match_parent"
-        android:layout_height="230dp" />
+        android:layout_height="280dp"
+        android:layout_weight="1"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -139,9 +151,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:padding="10dp"
+        android:padding="5dp"
         android:text="검색기록"
-        android:textSize="15dp" />
+        android:textSize="20dp"
+        android:textColor="@color/black" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -151,5 +164,6 @@
     <ListView
         android:id="@+id/search_history"
         android:layout_width="match_parent"
-        android:layout_height="230dp" />
+        android:layout_height="280dp"
+        android:layout_weight="1"/>
 </LinearLayout>

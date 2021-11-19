@@ -6,6 +6,8 @@ import com.example.subway.data.StationData3.expenseArray1
 import com.example.subway.data.StationData4.expenseArray2
 import com.example.subway.data.StationData5.distanceArray1
 import com.example.subway.data.StationData6.distanceArray2
+import org.json.JSONArray
+import org.json.JSONException
 
 var timeArray = timeArray1.plus(timeArray2)
 var expenseArray = expenseArray1.plus(expenseArray2)
@@ -440,7 +442,6 @@ fun getPathAndLine(path: MutableList<String?>): ArrayList<Any> {
             line.add(curLine.toString())
         }
     }
-    println(count.toString() +  line.toString())
     return arrayListOf<Any>(count, line)
 }
 
@@ -614,10 +615,4 @@ fun getShortestPathByDistance(start: String?, end: String?): MutableList<String?
 }
 
 
-
-//fun main() {
-//    var path = getShortestPathByTime("101", "102")
-//    println(path.toString())
-//    println(makePath(path).toString())
-//}
 
