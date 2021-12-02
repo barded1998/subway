@@ -1,5 +1,6 @@
 package com.example.subway
 
+import android.R.id
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -19,9 +20,19 @@ import android.preference.PreferenceManager
 import android.content.SharedPreferences
 import androidx.core.widget.addTextChangedListener
 import kotlin.reflect.typeOf
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
+import android.R.id.tabs
+import androidx.fragment.app.*
+import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayoutMediator
 
 
 class SearchActivity : AppCompatActivity() {
+    lateinit var bookmarkFragment: BookmarkFragment
+    lateinit var historyFragment: HistoryFragment
     var stations = arrayListOf<String>(
         "101",
         "102",
@@ -136,10 +147,54 @@ class SearchActivity : AppCompatActivity() {
         "904",
     )
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    inner class ViewPagerAdapter(fragment: FragmentActivity) : FragmentStateAdapter(fragment) {
+        override fun getItemCount(): Int = 2
 
+        override fun createFragment(position: Int): Fragment {
+            return when (position) {
+                0 -> bookmarkFragment
+                else -> historyFragment
+            }
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        bookmarkFragment = BookmarkFragment()
+        historyFragment = HistoryFragment()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
+        ///////////////
+        var tabLayout = findViewById<TabLayout>(R.id.tabLayout)
+        var pager = findViewById<ViewPager2>(R.id.pager)
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+
+            }
+        })
+
+        pager.adapter = ViewPagerAdapter(this)
+
+        TabLayoutMediator(tabLayout, pager) { tab, position ->
+            when (position) {
+                0 -> {
+                    tab.icon = getDrawable(R.drawable.star)
+                    tab.text = "즐겨찾기"
+                }
+                else -> {
+                    tab.icon = getDrawable(R.drawable.history)
+                    tab.text = "검색기록"
+                }
+            }
+        }.attach()
+
+
         //Set Auto Complete Text View with stations
         var departure = findViewById<AutoCompleteTextView>(R.id.search_departure_station)
         var transit = findViewById<AutoCompleteTextView>(R.id.search_transit_station)
@@ -166,44 +221,11 @@ class SearchActivity : AppCompatActivity() {
             )
         )
 
-        //Set bookmark list by getting data from shared preference (local storage)
-        var bookmark = getStringArrayPref("bookmark")
-        val boomarkList = mutableListOf<BookmarkListViewItem>()
-        for (b in bookmark) {
-            val bookmarkItem = BookmarkListViewItem(b)
-            boomarkList.add(bookmarkItem)
-        }
-        val adapter1 = BookmarkListViewAdapter(boomarkList)
-        val listview1 = findViewById(R.id.search_bookmark) as ListView
-        listview1.setAdapter(adapter1)
-
-        //Set history list by getting data from shared preference (local storage)
-        var history = getStringArrayPref("history")
-        var historyList = mutableListOf<HistoryListViewItem>()
-        for (i in history.size - 1 downTo 0) {
-            var h = history[i]
-            var arr = h.split(" ")
-            var historyItem: HistoryListViewItem
-            if (arr.size < 2) {
-                break
-            }
-            if (arr.size == 3) {
-                historyItem = HistoryListViewItem(arr[0], arr[1], arr[2])
-            } else {
-                historyItem = HistoryListViewItem(arr[0], arr[1])
-            }
-            historyList.add(historyItem)
-        }
-        var adapter2 = HistoryListViewAdapter(historyList)
-        var listview2 = findViewById(R.id.search_history) as ListView
-        listview2.setAdapter(adapter2)
-        listview2.setOnItemClickListener(HistoryItemClickListener())
-
         //set searchBtn click listener
         var searchBtn = findViewById<Button>(R.id.search_search_btn)
         searchBtn.setOnClickListener {
             val intent = Intent(this, ResultActivity::class.java)
-            history = getStringArrayPref("history")
+            var history = getStringArrayPref("history")
             var departureStation =
                 findViewById<EditText>(R.id.search_departure_station).text.toString()
             var transitStation = findViewById<EditText>(R.id.search_transit_station).text.toString()
@@ -238,7 +260,7 @@ class SearchActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "경유역과 도착역이 같습니다.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            if (departureStation == arrivalStation &&  transitStation == "") {
+            if (departureStation == arrivalStation && transitStation == "") {
                 Toast.makeText(applicationContext, "출발역과 도착역이 같습니다.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
 
@@ -272,15 +294,16 @@ class SearchActivity : AppCompatActivity() {
             intent.putExtra("transitStation", transitStation)
             intent.putExtra("arrivalStation", arrivalStation)
             var route = departureStation + ' ' + arrivalStation + " " + transitStation
+            Log.d(route, route)
             if (departureStation != "" || arrivalStation != "") {
                 startActivityForResult(intent, 101)
-                if (history.size >= 10) {
-                    history = ArrayList<String>(history.subList(1, 10))
+                if (history.size >= 20) {
+                    history = ArrayList<String>(history.subList(1, 20))
                 }
                 history.add(route)
 
                 setStringArrayPref("history", history)
-                historyList = mutableListOf<HistoryListViewItem>()
+                var historyList = mutableListOf<HistoryListViewItem>()
                 for (i in history.size - 1 downTo 0) {
                     var h = history[i]
                     var arr = h.split(" ")
@@ -295,112 +318,33 @@ class SearchActivity : AppCompatActivity() {
                     }
                     historyList.add(historyItem)
                 }
-                adapter2 = HistoryListViewAdapter(historyList)
-                listview2.setAdapter(adapter2)
-                adapter2.notifyDataSetChanged()
+                historyFragment.setHistoryListViewAdapter(historyList)
+//                adapter2 = HistoryListViewAdapter(historyList)
+//                listview2.setAdapter(adapter2)
+//                adapter2.notifyDataSetChanged()
             }
 
-        }
-    }
-
-    inner class BookmarkListViewAdapter(val items: MutableList<BookmarkListViewItem>) :
-        BaseAdapter() {
-        override fun getCount(): Int = items.size
-        override fun getItem(position: Int): BookmarkListViewItem = items[position]
-        override fun getItemId(position: Int): Long = position.toLong()
-        override fun getView(position: Int, view: View?, parent: ViewGroup?): View {
-            var convertView = view
-            if (convertView == null) {
-                convertView = layoutInflater.inflate(R.layout.bookmark_list_item, null)
-            }
-            val item: BookmarkListViewItem = items[position]
-            var station = convertView?.findViewById<TextView>(R.id.bookmark_list_item_station)
-            station?.text = item.station
-            var departureBtn = convertView?.findViewById<Button>(R.id.bookmark_list_item_departure)
-            departureBtn?.setOnClickListener {
-                var departure = findViewById<EditText>(R.id.search_departure_station)
-                departure.setText(item.station)
-            }
-            var transitBtn = convertView?.findViewById<Button>(R.id.bookmark_list_item_transit)
-            transitBtn?.setOnClickListener {
-                var transit = findViewById<EditText>(R.id.search_transit_station)
-                transit.setText(item.station)
-            }
-            var arrivalBtn = convertView?.findViewById<Button>(R.id.bookmark_list_item_arrival)
-            arrivalBtn?.setOnClickListener {
-                var arrival = findViewById<EditText>(R.id.search_arrival_station)
-                arrival.setText(item.station)
-            }
-            return convertView!!
-        }
-    }
-
-    inner class HistoryListViewAdapter(val items: MutableList<HistoryListViewItem>) :
-        BaseAdapter() {
-        override fun getCount(): Int = items.size
-        override fun getItem(position: Int): HistoryListViewItem = items[position]
-        override fun getItemId(position: Int): Long = position.toLong()
-        override fun getView(position: Int, view: View?, parent: ViewGroup?): View {
-            var convertView = view
-            if (convertView == null) {
-                convertView = layoutInflater.inflate(R.layout.history_list_item, null)
-            }
-            val item: HistoryListViewItem = items[position]
-
-
-            var departureStation = convertView?.findViewById<TextView>(R.id.history_departure)
-            departureStation?.text = item.departureStation
-            var arrivalStation = convertView?.findViewById<TextView>(R.id.history_arrival)
-            arrivalStation?.text = item.arrivalStation
-            var transitLayout = convertView?.findViewById<LinearLayout>(R.id.history_transit_layout)
-            transitLayout?.visibility = View.VISIBLE
-            if (item.transitStation == "" || item.transitStation == null) {
-                transitLayout?.visibility = View.GONE
-            } else {
-                var transitStation = convertView?.findViewById<TextView>(R.id.history_transit)
-                transitStation?.text = item.transitStation
-            }
-            return convertView!!
-        }
-
-    }
-
-    inner class HistoryItemClickListener : AdapterView.OnItemClickListener {
-        override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-            var departure = view?.findViewById<TextView>(R.id.history_departure)?.text.toString()
-            var transit = view?.findViewById<TextView>(R.id.history_transit)?.text.toString()
-            var arrival = view?.findViewById<TextView>(R.id.history_arrival)?.text.toString()
-            var departureStation = findViewById<EditText>(R.id.search_departure_station)
-            var transitStation = findViewById<EditText>(R.id.search_transit_station)
-            var arrivalStation = findViewById<EditText>(R.id.search_arrival_station)
-            departureStation.setText(departure)
-            if (transit != "") {
-                transitStation.setText(transit)
-            } else {
-                transitStation.setText("")
-            }
-            arrivalStation.setText(arrival)
         }
     }
 
     fun setStringArrayPref(key: String, items: ArrayList<String>) {
         val sharedPreference = getSharedPreferences("subway", 0)
-        val editor = sharedPreference.edit()
+        val editor = sharedPreference?.edit()
         val json = JSONArray()
         for (item in items) {
             json.put(item)
         }
         if (items.isEmpty()) {
-            editor.putString(key, null)
+            editor?.putString(key, null)
         } else {
-            editor.putString(key, json.toString())
+            editor?.putString(key, json.toString())
         }
-        editor.apply()
+        editor?.apply()
     }
 
     fun getStringArrayPref(key: String): ArrayList<String> {
         val sharedPreference = getSharedPreferences("subway", 0)
-        val json = sharedPreference.getString(key, null)
+        val json = sharedPreference?.getString(key, null)
         var array = arrayListOf<String>()
         if (json != null) {
             try {
@@ -415,4 +359,5 @@ class SearchActivity : AppCompatActivity() {
         }
         return array
     }
+
 }

@@ -6,15 +6,29 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".SearchActivity">
-
     <LinearLayout
         android:background="@color/colorMjuDarkBlue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="경로검색"
+            android:textSize="20dp"
+            android:textColor="@color/colorLightGray"
+            android:paddingVertical="5dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:background="@color/colorLightGray"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="30dp">
+        android:paddingHorizontal="20dp"
+        android:paddingBottom="20dp"
+        android:paddingTop="15dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -25,22 +39,13 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:gravity="center"
-                    android:text="출발"
-                    android:textSize="15dp"
-                    android:textColor="@color/white"/>
-
                 <AutoCompleteTextView
                     android:completionThreshold="2"
                     android:maxLength="3"
                     android:inputType="number"
                     android:id="@+id/search_departure_station"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="40dp"
                     android:background="@drawable/rectangle"
                     android:gravity="center"
                     android:hint="출발역"
@@ -53,23 +58,13 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:gravity="center"
-                    android:text="경유"
-                    android:textSize="15dp"
-                    android:textColor="@color/white"
-                    />
-
                 <AutoCompleteTextView
                     android:completionThreshold="2"
                     android:maxLength="3"
                     android:inputType="number"
                     android:id="@+id/search_transit_station"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="40dp"
                     android:background="@drawable/rectangle"
                     android:gravity="center"
                     android:hint="경유역"
@@ -82,15 +77,15 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:gravity="center"
-                    android:text="도착"
-                    android:textSize="15dp"
-                    android:textColor="@color/white"
-                    />
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginBottom="5dp"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="도착"-->
+<!--                    android:textSize="15dp"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    />-->
 
                 <AutoCompleteTextView
                     android:completionThreshold="2"
@@ -98,7 +93,7 @@
                     android:inputType="number"
                     android:id="@+id/search_arrival_station"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="40dp"
                     android:background="@drawable/rectangle"
                     android:gravity="center"
                     android:hint="도착역"
@@ -106,64 +101,99 @@
             </LinearLayout>
         </LinearLayout>
         <Button
-            android:background="@color/colorMjuLightBlue"
+            android:background="@drawable/round_button2"
             android:id="@+id/search_search_btn"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:layout_marginTop="20dp"
             android:text="경로 찾기"
             android:textSize="20dp"
             android:textColor="@color/black"/>
     </LinearLayout>
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#888888" />
-
-    <TextView
+        android:background="@color/colorDivision"/>
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:padding="5dp"
-        android:text="즐겨찾기"
-        android:textSize="20dp"
-        android:textColor="@color/black"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/colorLightGray"
+        >
 
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2" />
+
+    </com.google.android.material.tabs.TabLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#888888" />
-
-    <ListView
-        android:id="@+id/search_bookmark"
+        android:background="@color/colorDivision"/>
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/pager"
         android:layout_width="match_parent"
-        android:layout_height="280dp"
-        android:layout_weight="1"/>
+        android:layout_height="600dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="1dp"-->
+<!--        android:background="#888888" />-->
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#888888" />
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginLeft="20dp"-->
+<!--        android:padding="5dp"-->
+<!--        android:text="즐겨찾기"-->
+<!--        android:textSize="20dp"-->
+<!--        android:textColor="@color/black"/>-->
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:padding="5dp"
-        android:text="검색기록"
-        android:textSize="20dp"
-        android:textColor="@color/black" />
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="1dp"-->
+<!--        android:background="#888888" />-->
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#888888" />
+<!--    <ListView-->
+<!--        android:id="@+id/search_bookmark"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="280dp"-->
+<!--        android:layout_weight="1"/>-->
 
-    <ListView
-        android:id="@+id/search_history"
-        android:layout_width="match_parent"
-        android:layout_height="280dp"
-        android:layout_weight="1"/>
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="1dp"-->
+<!--        android:background="#888888" />-->
+
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginLeft="20dp"-->
+<!--        android:padding="5dp"-->
+<!--        android:text="검색기록"-->
+<!--        android:textSize="20dp"-->
+<!--        android:textColor="@color/black" />-->
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="1dp"-->
+<!--        android:background="#888888" />-->
+
+<!--    <ListView-->
+<!--        android:id="@+id/search_history"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="280dp"-->
+<!--        android:layout_weight="1"/>-->
 </LinearLayout>

@@ -2,51 +2,86 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    >
+    android:orientation="horizontal">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="left|center"
-        android:layout_weight="1">
-        <TextView
-            android:id="@+id/bookmark_list_item_station"
-            android:layout_marginLeft="30dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="106"
-            android:textSize="18dp" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_margin="3dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="right|center"
-        android:layout_weight="1">
-        <Button
-            android:id="@+id/bookmark_list_item_departure"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:background="@drawable/btn_arrival"
-            android:text="출발"
-            android:textSize="13dp" />
-        <Button
-            android:id="@+id/bookmark_list_item_transit"
-            android:layout_marginLeft="20dp"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:background="@drawable/btn_arrival"
-            android:text="경유"
-            android:textSize="13dp"/>
-        <Button
-           android:id="@+id/bookmark_list_item_arrival"
-            android:layout_marginHorizontal="20dp"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:background="@drawable/btn_arrival"
-            android:text="도착"
-            android:textSize="13dp"
-            android:scaleType="fitXY"/>
+        android:layout_height="wrap_content"
+        android:paddingVertical="3dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="left|center">
+
+            <TextView
+                android:id="@+id/bookmark_list_item_station"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="106"
+                android:textColor="@color/black"
+                android:textSize="18dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            android:layout_weight="1"
+            android:gravity="right|center">
+            <!--        <LinearLayout-->
+            <!--            android:layout_width="wrap_content"-->
+            <!--            android:layout_height="match_parent"-->
+            <!--            android:orientation="vertical">-->
+            <!--            <Button-->
+            <!--                android:layout_gravity="center"-->
+            <!--                android:id="@+id/bookmark_list_item_departure"-->
+            <!--                android:layout_width="20dp"-->
+            <!--                android:layout_height="20dp"-->
+            <!--                android:background="@drawable/departure_icon"-->
+            <!--                android:textSize="13dp" />-->
+            <!--            <TextView-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="출발"-->
+            <!--                android:textSize="10dp"-->
+            <!--                android:layout_marginTop="3dp"-->
+            <!--                />-->
+            <!--        </LinearLayout>-->
+            <Button
+                android:id="@+id/bookmark_list_item_departure"
+                android:layout_width="27dp"
+                android:layout_height="27dp"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/departure_icon"
+                android:textSize="13dp" />
+
+            <Button
+                android:id="@+id/bookmark_list_item_transit"
+                android:layout_width="27dp"
+                android:layout_height="27dp"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/transfer_icon"
+                android:textSize="13dp" />
+
+            <Button
+                android:id="@+id/bookmark_list_item_arrival"
+                android:layout_width="27dp"
+                android:layout_height="27dp"
+                android:layout_marginHorizontal="20dp"
+                android:background="@drawable/arrival_icon"
+                android:scaleType="fitXY"
+                android:textSize="13dp" />
+
+            <Button
+                android:id="@+id/bookmark_list_item_remove"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:background="@drawable/close"
+                android:gravity="center" />
+        </LinearLayout>
+
     </LinearLayout>
 </LinearLayout>

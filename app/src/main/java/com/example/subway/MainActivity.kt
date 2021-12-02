@@ -4,10 +4,14 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
+import com.bumptech.glide.Glide
 
 import com.example.subway.databinding.ActivityMainBinding
+import com.google.firebase.firestore.FirebaseFirestore
+import java.util.*
 
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -15,6 +19,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     var departureStation: String? = null
     var arrivalStation: String? = null
     var transitStation: String? = null
+    lateinit var firestore: FirebaseFirestore
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -32,17 +37,31 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         var AdButton3: ImageButton = findViewById(R.id.AdButton2)
         var Text1: TextView = findViewById(R.id.AdText)
 
-        binding.btnCall.setOnClickListener {
-            AdButton1.setVisibility(View.INVISIBLE)
-            Text1.setVisibility(View.INVISIBLE)
-            AdButton2.setVisibility(View.VISIBLE)
-            AdButton3.setVisibility(View.VISIBLE)
+        firestore = FirebaseFirestore.getInstance()
+        firestore.collection("ads").get().addOnSuccessListener { result ->
+            val random = Random()
+            val num = random.nextInt(result.size())
+            var iconImg = result.documents[num].get("icon").toString()
+            var logoImg = result.documents[num].get("logo").toString()
+            var url = result.documents[num].get("url").toString()
+            Glide.with(this).load(iconImg).into(binding.btnCall)
+            Glide.with(this).load(logoImg).into(binding.AdButton)
+            binding.btnCall.setOnClickListener {
+                AdButton1.setVisibility(View.INVISIBLE)
+                Text1.setVisibility(View.INVISIBLE)
+                AdButton2.setVisibility(View.VISIBLE)
+                AdButton3.setVisibility(View.VISIBLE)
+            }
+            binding.AdButton.setOnClickListener {
+                var intent = Intent(Intent.ACTION_VIEW)
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
+            }
         }
-        binding.AdButton.setOnClickListener {
-            var intent = Intent(Intent.ACTION_VIEW)
-            intent.setData(Uri.parse("https://www.mju.ac.kr/sites/mjukr/intro/intro.html"));
-            startActivity(intent);
-        }
+            .addOnFailureListener { exception ->
+                Log.d(exception.toString(), "Error getting documents: ", exception)
+            }
+
         binding.AdButton2.setOnClickListener{
             AdButton2.setVisibility(View.INVISIBLE)
             Text1.setVisibility(View.VISIBLE)
@@ -50,6 +69,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             AdButton1.setVisibility(View.VISIBLE)
         }
         //Set searchBar
+        binding.mainSearchBar.setOnClickListener {
+            binding.mainSearchBar.isIconified = false
+        }
         binding.mainSearchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if(query != null && query?.length != 3) {

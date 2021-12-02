@@ -89,7 +89,7 @@ class StationInfoFragment : Fragment() {
             setFragment()
         }
         //set info_departure_btn
-        fragmentView?.findViewById<Button>(R.id.info_departure_btn)?.setOnClickListener {
+        fragmentView?.findViewById<LinearLayout>(R.id.info_departure_btn)?.setOnClickListener {
             (activity as MainActivity).departureStation = station
             if((activity as MainActivity).departureStation == (activity as MainActivity).arrivalStation ){
                 (activity as MainActivity).arrivalStation = null
@@ -117,7 +117,46 @@ class StationInfoFragment : Fragment() {
             var ft: FragmentTransaction? = fragmentManager?.beginTransaction()
             ft?.detach(this)?.commit()
         }
-        fragmentView?.findViewById<Button>(R.id.info_transit_btn)?.setOnClickListener {
+        fragmentView?.findViewById<ImageButton>(R.id.info_departure_btn2)?.setOnClickListener {
+            (activity as MainActivity).departureStation = station
+            if((activity as MainActivity).departureStation == (activity as MainActivity).arrivalStation ){
+                (activity as MainActivity).arrivalStation = null
+            }
+            if((activity as MainActivity).departureStation == (activity as MainActivity).transitStation ){
+                (activity as MainActivity).transitStation = null
+            }
+            if ((activity as MainActivity).departureStation != null && (activity as MainActivity).arrivalStation != null) {
+                var intent = Intent(context, ResultActivity::class.java)
+                intent.putExtra("departureStation", (activity as MainActivity).departureStation)
+                intent.putExtra("arrivalStation", (activity as MainActivity).arrivalStation)
+                var route = (activity as MainActivity).departureStation + " " + (activity as MainActivity).arrivalStation
+                if((activity as MainActivity).transitStation != null) {
+                    intent.putExtra("transitStation", (activity as MainActivity).transitStation)
+                    route = (activity as MainActivity).departureStation + " " + (activity as MainActivity).arrivalStation + " " + (activity as MainActivity).transitStation
+                }
+                var history = getStringArrayPref("history")
+                history.add(route)
+                setStringArrayPref("history",history )
+                (activity as MainActivity).departureStation = null
+                (activity as MainActivity).transitStation = null
+                (activity as MainActivity).arrivalStation = null
+                startActivity(intent)
+            }
+            var ft: FragmentTransaction? = fragmentManager?.beginTransaction()
+            ft?.detach(this)?.commit()
+        }
+        fragmentView?.findViewById<LinearLayout>(R.id.info_transit_btn)?.setOnClickListener {
+            (activity as MainActivity).transitStation = station
+            if((activity as MainActivity).transitStation == (activity as MainActivity).arrivalStation ){
+                (activity as MainActivity).arrivalStation = null
+            }
+            if((activity as MainActivity).transitStation == (activity as MainActivity).departureStation ){
+                (activity as MainActivity).departureStation = null
+            }
+            var ft: FragmentTransaction? = fragmentManager?.beginTransaction()
+            ft?.detach(this)?.commit()
+        }
+        fragmentView?.findViewById<ImageButton>(R.id.info_transit_btn2)?.setOnClickListener {
             (activity as MainActivity).transitStation = station
             if((activity as MainActivity).transitStation == (activity as MainActivity).arrivalStation ){
                 (activity as MainActivity).arrivalStation = null
@@ -129,7 +168,35 @@ class StationInfoFragment : Fragment() {
             ft?.detach(this)?.commit()
         }
         //set info_arrival_btn
-        fragmentView?.findViewById<Button>(R.id.info_arrival_btn)?.setOnClickListener {
+        fragmentView?.findViewById<LinearLayout>(R.id.info_arrival_btn)?.setOnClickListener {
+            (activity as MainActivity).arrivalStation = station
+            if((activity as MainActivity).arrivalStation == (activity as MainActivity).departureStation ){
+                (activity as MainActivity).departureStation = null
+            }
+            if((activity as MainActivity).arrivalStation == (activity as MainActivity).transitStation ){
+                (activity as MainActivity).transitStation = null
+            }
+            if ((activity as MainActivity).departureStation != null && (activity as MainActivity).arrivalStation != null) {
+                var intent = Intent(context, ResultActivity::class.java)
+                intent.putExtra("departureStation", (activity as MainActivity).departureStation)
+                intent.putExtra("arrivalStation", (activity as MainActivity).arrivalStation)
+                var route = (activity as MainActivity).departureStation + " " + (activity as MainActivity).arrivalStation
+                if((activity as MainActivity).transitStation != null) {
+                    intent.putExtra("transitStation", (activity as MainActivity).transitStation)
+                    route = (activity as MainActivity).departureStation + " " + (activity as MainActivity).arrivalStation + " " + (activity as MainActivity).transitStation
+                }
+                var history = getStringArrayPref("history")
+                history.add(route)
+                setStringArrayPref("history",history )
+                (activity as MainActivity).departureStation = null
+                (activity as MainActivity).transitStation = null
+                (activity as MainActivity).arrivalStation = null
+                startActivity(intent)
+            }
+            var ft: FragmentTransaction? = fragmentManager?.beginTransaction()
+            ft?.detach(this)?.commit()
+        }
+        fragmentView?.findViewById<ImageButton>(R.id.info_arrival_btn2)?.setOnClickListener {
             (activity as MainActivity).arrivalStation = station
             if((activity as MainActivity).arrivalStation == (activity as MainActivity).departureStation ){
                 (activity as MainActivity).departureStation = null

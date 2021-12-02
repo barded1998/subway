@@ -25,9 +25,14 @@ import kotlin.collections.ArrayList
 
 class ResultByTimeFragment : Fragment() {
     // Store instance variables
-    private var departureStation: String? = null
-    private var transitStation: String? = null
-    private var arrivalStation: String? = null
+    private var initialize = true
+    companion object{
+        private var departureStation: String? = null
+        private var transitStation: String? = null
+        private var arrivalStation: String? = null
+        private var departureLine: Int? = null
+        private var arrivalLine: Int? = null
+    }
 
     // newInstance constructor for creating fragment with arguments
     fun newInstance(
@@ -95,31 +100,15 @@ class ResultByTimeFragment : Fragment() {
             path = path1.plus(path2) as MutableList<String?>
         }
 
-        //Set the images of the departureStation and arrivalStation at the top
-        when (makedPath[0][0].toString().toInt()) {
-            1 ->  activity?.findViewById<ImageView>(R.id.result_departure_station_img)?.setImageResource(R.drawable.line1)
-            2 ->  activity?.findViewById<ImageView>(R.id.result_departure_station_img)?.setImageResource(R.drawable.line2)
-            3 ->  activity?.findViewById<ImageView>(R.id.result_departure_station_img)?.setImageResource(R.drawable.line3)
-            4 ->  activity?.findViewById<ImageView>(R.id.result_departure_station_img)?.setImageResource(R.drawable.line4)
-            5 ->  activity?.findViewById<ImageView>(R.id.result_departure_station_img)?.setImageResource(R.drawable.line5)
-            6 ->  activity?.findViewById<ImageView>(R.id.result_departure_station_img)?.setImageResource(R.drawable.line6)
-            7 ->  activity?.findViewById<ImageView>(R.id.result_departure_station_img)?.setImageResource(R.drawable.line7)
-            8 ->  activity?.findViewById<ImageView>(R.id.result_departure_station_img)?.setImageResource(R.drawable.line8)
-            9 ->  activity?.findViewById<ImageView>(R.id.result_departure_station_img)?.setImageResource(R.drawable.line9)
+        departureLine = makedPath[0][0]?.toInt()
+        arrivalLine = makedPath[makedPath.size-1][0]?.toInt()
 
+        Log.d(initialize.toString(), "init")
+        if(initialize){
+            setActivityBarImages()
+            initialize = false
         }
-        when (makedPath[makedPath.size-1][0].toString().toInt()) {
-            1 ->  activity?.findViewById<ImageView>(R.id.result_arrival_station_img)?.setImageResource(R.drawable.line1)
-            2 ->  activity?.findViewById<ImageView>(R.id.result_arrival_station_img)?.setImageResource(R.drawable.line2)
-            3 ->  activity?.findViewById<ImageView>(R.id.result_arrival_station_img)?.setImageResource(R.drawable.line3)
-            4 ->  activity?.findViewById<ImageView>(R.id.result_arrival_station_img)?.setImageResource(R.drawable.line4)
-            5 ->  activity?.findViewById<ImageView>(R.id.result_arrival_station_img)?.setImageResource(R.drawable.line5)
-            6 ->  activity?.findViewById<ImageView>(R.id.result_arrival_station_img)?.setImageResource(R.drawable.line6)
-            7 ->  activity?.findViewById<ImageView>(R.id.result_arrival_station_img)?.setImageResource(R.drawable.line7)
-            8 ->  activity?.findViewById<ImageView>(R.id.result_arrival_station_img)?.setImageResource(R.drawable.line8)
-            9 ->  activity?.findViewById<ImageView>(R.id.result_arrival_station_img)?.setImageResource(R.drawable.line9)
 
-        }
         //Set ExpandableList(result list of path) by using ExpandableItemList
         var data = makeExpandableItemList(makedPath)
 
@@ -219,5 +208,32 @@ class ResultByTimeFragment : Fragment() {
             data.add(ExpandableListAdapter.Item(ExpandableListAdapter.LAST, array[array.size-1].toString()));
         }
         return data
+    }
+    fun setActivityBarImages() {
+        Log.d("Time departure", departureLine.toString())
+        Log.d("Time arrival", arrivalLine.toString())
+        when (departureLine) {
+            1 ->  activity?.findViewById<ImageView>(R.id.result_departure_station_img)?.setImageResource(R.drawable.line1)
+            2 ->  activity?.findViewById<ImageView>(R.id.result_departure_station_img)?.setImageResource(R.drawable.line2)
+            3 ->  activity?.findViewById<ImageView>(R.id.result_departure_station_img)?.setImageResource(R.drawable.line3)
+            4 ->  activity?.findViewById<ImageView>(R.id.result_departure_station_img)?.setImageResource(R.drawable.line4)
+            5 ->  activity?.findViewById<ImageView>(R.id.result_departure_station_img)?.setImageResource(R.drawable.line5)
+            6 ->  activity?.findViewById<ImageView>(R.id.result_departure_station_img)?.setImageResource(R.drawable.line6)
+            7 ->  activity?.findViewById<ImageView>(R.id.result_departure_station_img)?.setImageResource(R.drawable.line7)
+            8 ->  activity?.findViewById<ImageView>(R.id.result_departure_station_img)?.setImageResource(R.drawable.line8)
+            9 ->  activity?.findViewById<ImageView>(R.id.result_departure_station_img)?.setImageResource(R.drawable.line9)
+
+        }
+        when (arrivalLine) {
+            1 ->  activity?.findViewById<ImageView>(R.id.result_arrival_station_img)?.setImageResource(R.drawable.line1)
+            2 ->  activity?.findViewById<ImageView>(R.id.result_arrival_station_img)?.setImageResource(R.drawable.line2)
+            3 ->  activity?.findViewById<ImageView>(R.id.result_arrival_station_img)?.setImageResource(R.drawable.line3)
+            4 ->  activity?.findViewById<ImageView>(R.id.result_arrival_station_img)?.setImageResource(R.drawable.line4)
+            5 ->  activity?.findViewById<ImageView>(R.id.result_arrival_station_img)?.setImageResource(R.drawable.line5)
+            6 ->  activity?.findViewById<ImageView>(R.id.result_arrival_station_img)?.setImageResource(R.drawable.line6)
+            7 ->  activity?.findViewById<ImageView>(R.id.result_arrival_station_img)?.setImageResource(R.drawable.line7)
+            8 ->  activity?.findViewById<ImageView>(R.id.result_arrival_station_img)?.setImageResource(R.drawable.line8)
+            9 ->  activity?.findViewById<ImageView>(R.id.result_arrival_station_img)?.setImageResource(R.drawable.line9)
+        }
     }
 }
